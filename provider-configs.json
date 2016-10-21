@@ -4,17 +4,41 @@
     "extraRequestParams": {
       "display": "popup"
     },
-    "scope": "profile"
+    "scope": "profile",
+    "styles": {
+      "buttonLogin": {
+        "backgroundColor": "#3b5998"
+      },
+      "buttonLoginText": {
+        "color": "#fff"        
+      }
+    }
   },
   "Github": {
     "url": "https://github.com/login/oauth/authorize",
-    "scope": "repo" 
+    "scope": "repo" ,
+    "styles": {
+      "buttonLogin": {
+        "backgroundColor": "#333"
+      },
+      "buttonLoginText": {
+        "color": "#fff"        
+      }
+    }
   },
   "Google": {
     "extraRequestParams": {
       "response_type": "code"
     },
     "url": "https://accounts.google.com/o/oauth2/v2/auth",
-    "scope": "email"
+    "scope": "email",
+    "styles": {
+      "buttonLogin": {
+        "backgroundColor": "#dd4b39"
+      },
+      "buttonLoginText": {
+        "color": "#fff"        
+      }
+    }
   }
 }
