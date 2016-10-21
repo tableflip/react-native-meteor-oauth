@@ -10,7 +10,9 @@ import providerConfigs from './provider-configs'
 
 const styles = {
   buttonContainer: { flexDirection: 'row', justifyContent: 'space-around' },
-  button: { backgroundColor: '#CCC', flex: -1 },
+  button: { flex: -1 },
+  buttonLogin: { backgroundColor: '#CC0# '},
+  buttonLogout: { backgroundColor: '#0CC# '},
   buttonText: { textAlign: 'center', paddingVertical: 12, paddingHorizontal: 40 },
   text: { textAlign: 'center', marginBottom: 15 },
   view: { flex: 1, alignSelf: 'stretch', justifyContent: 'center' }
@@ -25,17 +27,19 @@ class Login extends React.Component {
     clientId: React.PropTypes.string.isRequired,
     scope: React.PropTypes.string,
     url: React.PropTypes.string,
-    Meteor: React.PropTypes.object,
-    styles: React.PropTypes.object
+    extraRequestParams: React.PropTypes.string,
+    styles: React.PropTypes.Object
   }
 
   static defaultProps = {
-    styles: {}
+    styles: {},
+    classNames: {}
   }
 
   styles = {
     buttonContainer: Object.assign({}, styles.buttonContainer, this.props.styles.buttonContainer),
-    button: Object.assign({}, styles.button, this.props.styles.button),
+    buttonLogin: Object.assign({}, styles.button, style.buttonLogin, this.props.styles.button),
+    buttonLogout: Object.assign({}, styles.button, style.buttonLogout, this.props.styles.button),
     buttonText: Object.assign({}, styles.buttonText, this.props.styles.buttonText),
     text: Object.assign({}, styles.text, this.props.styles.text),
     view: Object.assign({}, styles.view, this.props.styles.view),  
@@ -47,16 +51,18 @@ class Login extends React.Component {
   }
 
   login = () => {
-    const providerConfig = providerConfigs[this.props.provider]
+    const providerConfig = providerConfigs[this.props.provider] || {}
     const url = this.props.url || providerConfig.url
     const randomToken = randomize('*', 10)
     const state = stateParam('popup', randomToken, this.props.callbackUrl)
+
     const queryString = qs.stringify(Object.assign({
       client_id: this.props.clientId,
       redirect_uri: this.props.callbackUrl,
-      scope: this.props.scope,
+      scope: this.props.scope || providerConfig.scope,
       state
-    }, providerConfig.extraParams))
+    }, providerConfig.extraRequestParams, this.props.extraRequestParams))
+
     this.setState({
       targetUrl: `${url}?${queryString}`,
       stage: 'webView'
@@ -65,6 +71,7 @@ class Login extends React.Component {
 
   navigation = ({ url }) => {
     const regex = new RegExp(`^${this.props.callbackUrl}\[\?#](.*)$`)
+    
     const parsedUrl = regex.exec(url)
     if (parsedUrl) {
       this.setState({ stage: 'confirmation' })
@@ -94,7 +101,7 @@ class Login extends React.Component {
       return (<View style={this.styles.view}>
         <Text style={this.styles.text}>Logged in as {user.profile.name}.</Text>
         <View style={this.styles.buttonContainer}>
-          <TouchableOpacity onPress={() => Meteor.logout()} style={this.styles.button}>
+          <TouchableOpacity onPress={() => Meteor.logout()} style={this.styles.buttonLogout}>
             <Text style={this.styles.buttonText}>Logout</Text>
           </TouchableOpacity>
         </View>
@@ -104,7 +111,7 @@ class Login extends React.Component {
     return {
       initial: (
         <View style={this.styles.buttonContainer}>
-          <TouchableOpacity onPress={this.login} style={this.styles.button}>
+          <TouchableOpacity onPress={this.login} style={this.styles.buttonLogin}>
             <Text style={this.styles.buttonText}>Login with {this.props.provider}</Text>
           </TouchableOpacity>
         </View>),

@@ -1,20 +1,20 @@
 {
   "Facebook": {
     "url": "https://www.facebook.com/v2.2/dialog/oauth",
-    "extraParams": {
+    "extraRequestParams": {
       "display": "popup"
-    }
+    },
+    "scope": "profile"
   },
   "Github": {
-    "url": "https://github.com/login/oauth/authorize" 
+    "url": "https://github.com/login/oauth/authorize",
+    "scope": "repo" 
   },
   "Google": {
-    "extraParams": {
+    "extraRequestParams": {
       "response_type": "code"
     },
-    "url": "https://accounts.google.com/o/oauth2/v2/auth"
-  },
-  "Twitter": {
-    "url": "https://www.facebook.com/v2.2/dialog/oauth"
+    "url": "https://accounts.google.com/o/oauth2/v2/auth",
+    "scope": "email"
   }
 }
