@@ -1,0 +1,20 @@
+{
+  "Facebook": {
+    "url": "https://www.facebook.com/v2.2/dialog/oauth",
+    "extraParams": {
+      "display": "popup"
+    }
+  },
+  "Github": {
+    "url": "https://github.com/login/oauth/authorize" 
+  },
+  "Google": {
+    "extraParams": {
+      "response_type": "code"
+    },
+    "url": "https://accounts.google.com/o/oauth2/v2/auth"
+  },
+  "Twitter": {
+    "url": "https://www.facebook.com/v2.2/dialog/oauth"
+  }
+}
