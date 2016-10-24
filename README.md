@@ -3,7 +3,7 @@ Oauth2 login to a Meteor server in React Native
 
 ## How?
 
-```
+```js
 import React, { Component } from 'react'
 import View from 'react-native'
 import Meteor from 'react-native-meteor'
@@ -47,7 +47,7 @@ Any other provider which allow login with Oauth2 can easily be added, which unfo
 * `extraRequestParams` (optional): a dictionary of extra parameters which need to be provided in the authorization request to make OAuth work.  For example, Google requires `response_type="code"`, but this is already set by default.
 * `styles` (optional): a dictionary of styles to overwrite the defaults, which are as follows:
 
-```
+```js
 {
   buttonContainer: { flexDirection: 'row', justifyContent: 'space-around' },
   button: { flex: -1 },
